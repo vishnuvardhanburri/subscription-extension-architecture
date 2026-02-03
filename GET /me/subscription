@@ -1,50 +1,29 @@
-4. Backend returns entitlement state:
+
+Possible states returned:
 - trial
 - active
 - past_due
 - canceled
 - expired
 
-The extension never infers subscription state on its own.
+The extension does not infer or store subscription state beyond a short-lived cache.
 
 ---
 
-## Feature Enforcement
+## Non-Responsibilities
 
-- If entitlement = `trial` or `active`
-- Premium features enabled
-- If entitlement = `past_due`, `canceled`, or `expired`
-- Premium features disabled gracefully
-- User prompted to manage subscription on website
-
----
-
-## Billing Lifecycle Events
-
-Stripe webhooks handled by backend:
-- `invoice.payment_succeeded`
-- `invoice.payment_failed`
-- `customer.subscription.updated`
-- `customer.subscription.deleted`
-
-Backend updates entitlement state accordingly.
+The extension explicitly does NOT:
+- Handle Stripe logic
+- Store billing state
+- Manage subscription lifecycle
+- Persist sensitive user data
+- Make entitlement decisions locally
 
 ---
 
-## Key Design Rules
+## Design Principles
 
-- Stripe is the billing authority
-- Backend is the entitlement authority
-- Extension is a consumer, not a decision-maker
-- No cookies or client-side subscription storage
-- All checks are server-validated
-
----
-
-## Failure Scenarios (Expected)
-
-- Webhook delays → backend retries
-- Extension offline → cached last-known entitlement (short TTL)
-- Payment failure → downgrade after grace period
-
-System is designed to fail safely.
+- Backend is the single source of truth
+- Fail safely when entitlement is unclear
+- Minimal client-side logic
+- No reliance on cookies or third-party trackers
