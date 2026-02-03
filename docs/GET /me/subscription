@@ -48,3 +48,4 @@ Backend updates entitlement state accordingly.
 - Payment failure → downgrade after grace period
 
 System is designed to fail safely.
+
