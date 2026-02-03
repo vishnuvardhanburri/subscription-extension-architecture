@@ -1,0 +1,28 @@
+
+Returns a normalized entitlement state:
+- trial
+- active
+- past_due
+- canceled
+- expired
+
+Clients must rely on this response to determine feature access.
+
+---
+
+## Security Principles
+
+- No Stripe secrets exposed to clients
+- Webhook signature verification required
+- Strict separation between billing and presentation layers
+- Short-lived tokens for client authentication
+
+---
+
+## Failure Handling
+
+- Webhook retries handled safely
+- Temporary Stripe outages tolerated
+- Grace periods applied for transient payment failures
+
+The backend is designed to fail conservatively and protect revenue.
