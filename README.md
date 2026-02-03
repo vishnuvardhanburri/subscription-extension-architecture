@@ -1,5 +1,5 @@
 
-# Subscription-Based Browser Extension – Reference Architecture
+# Subscription-Based Browser Extension – Reference Architecture ..
 
 This repository documents a reference architecture for a subscription-based, cookie-free browser extension that integrates with a backend service and a marketing website.
 
